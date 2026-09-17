@@ -115,7 +115,7 @@ export default function AdminDashboard() {
   const startPitchTimer = async (teamId: string) => {
     if (!gameState?.id) return;
     
-    const minutes = 7;
+    const minutes = 4;
     const endsAt = new Date(new Date().getTime() + minutes * 60000).toISOString();
     
     await supabase.from("game_state").update({
@@ -132,7 +132,8 @@ export default function AdminDashboard() {
     await stopTimer();
     
     let points = 5;
-    if (timeLeft <= 120000) {
+    // Award 10 points if they pitched for at least 3 minutes (out of 4 max), i.e. 1 minute or less remaining
+    if (timeLeft <= 60000) {
       points = 10;
     }
     
@@ -340,7 +341,7 @@ export default function AdminDashboard() {
             <button className="btn-neon pink" onClick={() => startTimer(15)}>Start 15m (Intro)</button>
             <button className="btn-neon pink" onClick={() => startTimer(45)}>Start 45m (Build)</button>
             <button className="btn-neon pink" onClick={() => startTimer(10)}>Start +10m (Ext)</button>
-            <button className="btn-neon pink" onClick={() => startTimer(7)}>Start 7m (Team Pitch)</button>
+            <button className="btn-neon pink" onClick={() => startTimer(4)}>Start 4m (Team Pitch)</button>
             <button className="btn-neon pink" onClick={() => startTimer(75)}>Start 1h15m (Total Pitch)</button>
             <button className="btn-neon pink" onClick={() => startTimer(30)}>Start 30m (Market)</button>
             {gameState?.is_paused && gameState?.timer_duration_ms > 0 ? (
