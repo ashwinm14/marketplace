@@ -203,8 +203,8 @@ export default function AdminDashboard() {
     if (!currentTeams) return;
 
     const updates = currentTeams.map(team => {
-      const score_market_sell = team.items_sold >= 3 ? 10 : 5;
-      const score_market_buy = team.items_bought >= 3 ? 10 : 5;
+      const score_market_sell = team.items_sold >= 1 ? 5 : 0;
+      const score_market_buy = team.items_bought >= 1 ? 5 : 0;
 
       return {
         ...team,
